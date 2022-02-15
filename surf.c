@@ -177,7 +177,8 @@ static const char *getcert(const char *uri);
 static void setcert(Client *c, const char *file);
 static const char *getstyle(const char *uri);
 static void setstyle(Client *c, const char *file);
-static void runscript(Client *c);
+static void runscript(Client *c, const char *file);
+static void runsitescripts(Client *c, const char *uri);
 static void evalscript(Client *c, const char *jsstr, ...);
 static void updatewinid(Client *c);
 static void handleplumb(Client *c, const char *uri);
@@ -411,6 +412,17 @@ setup(void)
 		g_free(styledir);
 	} else {
 		stylefile = buildfile(stylefile);
+	}
+
+	scriptdir = buildpath(scriptdir);
+	for (i = 0; i < LENGTH(scripts); ++i) {
+		if (!regcomp(&(scripts[i].re), scripts[i].regex, REG_EXTENDED)) {
+			scripts[i].file = g_strconcat(scriptdir, "/",
+								scripts[i].file, NULL);
+		} else {
+			fprintf(stderr, "Could not compile regex: %s\n", scripts[i].regex);
+			scripts[i].regex = NULL;
+		}
 	}
 
 	for (i = 0; i < LENGTH(uriparams); ++i) {
@@ -968,12 +980,25 @@ setstyle(Client *c, const char *file)
 }
 
 void
-runscript(Client *c)
+runsitescripts(Client *c, const char *uri) {
+	gchar *script;
+	gsize l;
+	int i;
+
+	for (i = 0; i < LENGTH(scripts); ++i) {
+		if (scripts[i].regex &&
+			!regexec(&(scripts[i].re), uri, 0, NULL, 0))
+			runscript(c, scripts[i].file);
+	}
+}
+
+void
+runscript(Client *c, const char *file)
 {
 	gchar *script;
 	gsize l;
 
-	if (g_file_get_contents(scriptfile, &script, &l, NULL) && l)
+	if (g_file_get_contents(file, &script, &l, NULL) && l)
 		evalscript(c, "%s", script);
 	g_free(script);
 }
@@ -1554,7 +1579,8 @@ loadchanged(WebKitWebView *v, WebKitLoadEvent e, Client *c)
 		evalscript(c, "document.documentElement.style.overflow = '%s'",
 		    enablescrollbars ? "auto" : "hidden");
 		*/
-		runscript(c);
+		runsitescripts(c, uri);
+		runscript(c, scriptfile);
 		break;
 	}
 	updatetitle(c);

@@ -6,6 +6,7 @@ static char *styledir       = "~/.surf/styles/";
 static char *certdir        = "~/.surf/certificates/";
 static char *cachedir       = "~/.surf/cache/";
 static char *cookiefile     = "~/.surf/cookies.txt";
+static char *scriptdir      = "~/.surf/scripts/";
 
 static SearchEngine searchengines[] = {
 	{ " ", "https://duckduckgo.com/?q=%s" },
@@ -124,6 +125,15 @@ static SiteSpecific styles[] = {
 static SiteSpecific certs[] = {
 	/* regexp               file in $certdir */
 	{ "://suckless\\.org/", "suckless.org.crt" },
+};
+
+/* scripts */
+/*
+ * Run scripts on certain URLs, will inject more than one script
+ */
+static SiteSpecific scripts[] = {
+	/* regexp                script in $scriptdir */
+	{ "://duckduckgo\\.com", "example.js" },
 };
 
 #define MODKEY GDK_CONTROL_MASK
