@@ -262,7 +262,6 @@ char *argv0;
 static ParamName loadtransient[] = {
 	Certificate,
 	CookiePolicies,
-	DarkMode,
 	DiskCache,
 	DNSPrefetch,
 	FileURLsCrossAccess,
@@ -278,6 +277,7 @@ static ParamName loadcommitted[] = {
 //	AccessMicrophone,
 //	AccessWebcam,
 	CaretBrowsing,
+	DarkMode,
 	DefaultCharset,
 	FontSize,
 	FrameFlattening,
@@ -1230,6 +1230,8 @@ newview(Client *c, WebKitWebView *rv)
 
 	c->context = context;
 	c->settings = settings;
+
+	setparameter(c, 0, DarkMode, &curconfig[DarkMode].val);
 
 	return v;
 }
