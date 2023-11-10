@@ -134,6 +134,11 @@ typedef struct {
 } Button;
 
 typedef struct {
+	char *token;
+	char *uri;
+} SearchEngine;
+
+typedef struct {
 	const char *uri;
 	Parameter config[ParameterLast];
 	regex_t re;
@@ -222,6 +227,7 @@ static void webprocessterminated(WebKitWebView *v,
                                  Client *c);
 static void closeview(WebKitWebView *v, Client *c);
 static void destroywin(GtkWidget* w, Client *c);
+static gchar *parseuri(const gchar *uri);
 
 /* Hotkeys */
 static void pasteuri(GtkClipboard *clipboard, const char *text, gpointer d);
@@ -584,7 +590,7 @@ loaduri(Client *c, const Arg *a)
 			url = g_strdup_printf("file://%s", path);
 			free(path);
 		} else {
-			url = g_strdup_printf("http://%s", uri);
+			url = parseuri(uri);
 		}
 		if (apath != uri)
 			free(apath);
@@ -1811,6 +1817,20 @@ destroywin(GtkWidget* w, Client *c)
 	destroyclient(c);
 	if (!clients)
 		gtk_main_quit();
+}
+
+gchar *
+parseuri(const gchar *uri)
+{
+	guint i;
+
+	for (i = 0; i < LENGTH(searchengines); i++) {
+		if (g_str_has_prefix(uri, searchengines[i].token))
+			return g_strdup_printf(searchengines[i].uri,
+					       uri + strlen(searchengines[i].token));
+	}
+
+	return g_strdup_printf("http://%s", uri);
 }
 
 void
