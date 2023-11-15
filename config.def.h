@@ -169,8 +169,8 @@ static Key keys[] = {
 	{ MODKEY,                GDK_KEY_minus,  zoom,       { .i = -1 } },
 	{ MODKEY,                GDK_KEY_equal,  zoom,       { .i = +1 } },
 
-	{ MODKEY,                GDK_KEY_p,      clipboard,  { .i = 1 } },
-	{ MODKEY,                GDK_KEY_y,      clipboard,  { .i = 0 } },
+	{ MODKEY,                GDK_KEY_y,      clipboard,  { .i = 1 } },
+	{ MODKEY,                GDK_KEY_w,      clipboard,  { .i = 0 } },
 
 	{ MODKEY,                GDK_KEY_n,      find,       { .i = +1 } },
 	{ MODKEY|GDK_SHIFT_MASK, GDK_KEY_n,      find,       { .i = -1 } },
@@ -183,6 +183,10 @@ static Key keys[] = {
 	{ 0,                     GDK_KEY_F11,    togglefullscreen, { 0 } },
 	{ MODKEY|GDK_SHIFT_MASK, GDK_KEY_o,      toggleinspector, { 0 } },
         { 0,                     GDK_KEY_F12,    toggleinspector, { 0 } },
+
+        { MODKEY,                GDK_KEY_1,      toggle,     { .i = JavaScript } },
+	{ MODKEY,                GDK_KEY_2,      toggle,     { .i = LoadImages } },
+        { MODKEY,                GDK_KEY_3,      toggle,     { .i = CaretBrowsing } },
 
 	{ MODKEY|GDK_SHIFT_MASK, GDK_KEY_c,      toggle,     { .i = CaretBrowsing } },
 	{ MODKEY|GDK_SHIFT_MASK, GDK_KEY_f,      toggle,     { .i = FrameFlattening } },
