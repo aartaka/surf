@@ -1134,6 +1134,7 @@ newview(Client *c, WebKitWebView *rv)
 	WebKitWebView *v;
 	WebKitSettings *settings;
 	WebKitWebContext *context;
+        WebKitWebsiteDataManager *datamanager;
 	WebKitCookieManager *cookiemanager;
 	WebKitUserContentManager *contentmanager;
 
@@ -1176,11 +1177,12 @@ newview(Client *c, WebKitWebView *rv)
 		if (curconfig[Ephemeral].val.i) {
 			context = webkit_web_context_new_ephemeral();
 		} else {
-			context = webkit_web_context_new_with_website_data_manager(
-			          webkit_website_data_manager_new(
-			          "base-cache-directory", cachedir,
-			          "base-data-directory", cachedir,
-			          NULL));
+                        datamanager = webkit_website_data_manager_new(
+                                "base-cache-directory", cachedir,
+                                "base-data-directory", cachedir,
+                                NULL);
+                        webkit_website_data_manager_set_itp_enabled(datamanager, 1);
+			context = webkit_web_context_new_with_website_data_manager(datamanager);
 		}
 
 		cookiemanager = webkit_web_context_get_cookie_manager(context);
