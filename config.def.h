@@ -1,12 +1,12 @@
 /* modifier 0 means no modifier */
-static int surfuseragent    = 1;  /* Append Surf version to default WebKit user agent */
+static int surfuseragent    = 0;  /* Append Surf version to default WebKit user agent */
 static char *fulluseragent  = ""; /* Or override the whole user agent string */
-static char *scriptfile     = "~/.surf/script.js";
-static char *styledir       = "~/.surf/styles/";
-static char *certdir        = "~/.surf/certificates/";
-static char *cachedir       = "~/.surf/cache/";
-static char *cookiefile     = "~/.surf/cookies.txt";
-static char *scriptdir      = "~/.surf/scripts/";
+static char *scriptfile     = "~/.local/share/surf/script.js";
+static char *styledir       = "~/.local/share/surf/styles/";
+static char *certdir        = "~/.local/share/surf/certificates/";
+static char *cachedir       = "~/.local/share/surf/cache/";
+static char *cookiefile     = "~/.local/share/surf/cookies.txt";
+static char *scriptdir      = "~/.local/share/surf/scripts/";
 
 static SearchEngine searchengines[] = {
 	{ " ", "https://duckduckgo.com/?q=%s" },
@@ -23,36 +23,36 @@ static Parameter defconfig[ParameterLast] = {
 	[AccessMicrophone]    =       { { .i = 0 },     },
 	[AccessWebcam]        =       { { .i = 0 },     },
 	[Certificate]         =       { { .i = 0 },     },
-	[CaretBrowsing]       =       { { .i = 0 },     },
-	[CookiePolicies]      =       { { .v = "@Aa" }, },
-	[DarkMode]            =       { { .i = 0 },     },
+	[CaretBrowsing]       =       { { .i = 1 },     },
+	[CookiePolicies]      =       { { .v = "@" },   },
+	[DarkMode]            =       { { .i = 1 },     },
 	[DefaultCharset]      =       { { .v = "UTF-8" }, },
 	[DiskCache]           =       { { .i = 1 },     },
 	[DNSPrefetch]         =       { { .i = 0 },     },
-	[Ephemeral]           =       { { .i = 0 },     },
+	[Ephemeral]           =       { { .i = 1 },     },
 	[FileURLsCrossAccess] =       { { .i = 0 },     },
-	[FontSize]            =       { { .i = 12 },    },
+	[FontSize]            =       { { .i = 16 },    },
 	[FrameFlattening]     =       { { .i = 0 },     },
 	[Geolocation]         =       { { .i = 0 },     },
 	[HideBackground]      =       { { .i = 0 },     },
-	[Inspector]           =       { { .i = 0 },     },
-	[Java]                =       { { .i = 1 },     },
-	[JavaScript]          =       { { .i = 1 },     },
+	[Inspector]           =       { { .i = 1 },     },
+	[Java]                =       { { .i = 0 },     },
+	[JavaScript]          =       { { .i = 0 },     },
 	[KioskMode]           =       { { .i = 0 },     },
-	[LoadImages]          =       { { .i = 1 },     },
+	[LoadImages]          =       { { .i = 0 },     },
 	[MediaManualPlay]     =       { { .i = 1 },     },
-	[PreferredLanguages]  =       { { .v = (char *[]){ NULL } }, },
+	[PreferredLanguages]  =       { { .v = (char *[]){ "en_US" } }, },
 	[RunInFullscreen]     =       { { .i = 0 },     },
 	[ScrollBars]          =       { { .i = 1 },     },
 	[ShowIndicators]      =       { { .i = 1 },     },
 	[SiteQuirks]          =       { { .i = 1 },     },
 	[SmoothScrolling]     =       { { .i = 0 },     },
-	[SpellChecking]       =       { { .i = 0 },     },
+	[SpellChecking]       =       { { .i = 1 },     },
 	[SpellLanguages]      =       { { .v = ((char *[]){ "en_US", NULL }) }, },
 	[StrictTLS]           =       { { .i = 1 },     },
 	[Style]               =       { { .i = 1 },     },
 	[WebGL]               =       { { .i = 0 },     },
-	[ZoomLevel]           =       { { .f = 1.0 },   },
+	[ZoomLevel]           =       { { .f = 1.3 },   },
 };
 
 static UriParameters uriparams[] = {
@@ -145,33 +145,29 @@ static SiteSpecific scripts[] = {
  */
 static Key keys[] = {
 	/* modifier              keyval          function    arg */
-	{ MODKEY,                GDK_KEY_g,      spawn,      SETPROP("_SURF_URI", "_SURF_GO", PROMPT_GO) },
-	{ MODKEY,                GDK_KEY_f,      spawn,      SETPROP("_SURF_FIND", "_SURF_FIND", PROMPT_FIND) },
+	{ MODKEY,                GDK_KEY_l,      spawn,      SETPROP("_SURF_URI", "_SURF_GO", PROMPT_GO) },
+	{ MODKEY,                GDK_KEY_s,      spawn,      SETPROP("_SURF_FIND", "_SURF_FIND", PROMPT_FIND) },
 	{ MODKEY,                GDK_KEY_slash,  spawn,      SETPROP("_SURF_FIND", "_SURF_FIND", PROMPT_FIND) },
 
 	{ 0,                     GDK_KEY_Escape, stop,       { 0 } },
-	{ MODKEY,                GDK_KEY_c,      stop,       { 0 } },
+	{ MODKEY,                GDK_KEY_g,      stop,       { 0 } },
 
 	{ MODKEY|GDK_SHIFT_MASK, GDK_KEY_r,      reload,     { .i = 1 } },
 	{ MODKEY,                GDK_KEY_r,      reload,     { .i = 0 } },
 
-	{ MODKEY,                GDK_KEY_l,      navigate,   { .i = +1 } },
-	{ MODKEY,                GDK_KEY_h,      navigate,   { .i = -1 } },
+	{ MODKEY|GDK_SHIFT_MASK, GDK_KEY_f,      navigate,   { .i = +1 } },
+	{ MODKEY|GDK_SHIFT_MASK, GDK_KEY_b,      navigate,   { .i = -1 } },
 
 	/* vertical and horizontal scrolling, in viewport percentage */
-	{ MODKEY,                GDK_KEY_j,      scrollv,    { .i = +10 } },
-	{ MODKEY,                GDK_KEY_k,      scrollv,    { .i = -10 } },
+	{ MODKEY,                GDK_KEY_n,      scrollv,    { .i = +10 } },
+	{ MODKEY,                GDK_KEY_p,      scrollv,    { .i = -10 } },
 	{ MODKEY,                GDK_KEY_space,  scrollv,    { .i = +50 } },
-	{ MODKEY,                GDK_KEY_b,      scrollv,    { .i = -50 } },
-	{ MODKEY,                GDK_KEY_i,      scrollh,    { .i = +10 } },
-	{ MODKEY,                GDK_KEY_u,      scrollh,    { .i = -10 } },
+	{ MODKEY,                GDK_KEY_v,      scrollv,    { .i = -50 } },
+	{ MODKEY,                GDK_KEY_f,      scrollh,    { .i = +10 } },
+	{ MODKEY,                GDK_KEY_b,      scrollh,    { .i = -10 } },
 
-
-	{ MODKEY|GDK_SHIFT_MASK, GDK_KEY_j,      zoom,       { .i = -1 } },
-	{ MODKEY|GDK_SHIFT_MASK, GDK_KEY_k,      zoom,       { .i = +1 } },
-	{ MODKEY|GDK_SHIFT_MASK, GDK_KEY_q,      zoom,       { .i = 0  } },
 	{ MODKEY,                GDK_KEY_minus,  zoom,       { .i = -1 } },
-	{ MODKEY,                GDK_KEY_plus,   zoom,       { .i = +1 } },
+	{ MODKEY,                GDK_KEY_equal,  zoom,       { .i = +1 } },
 
 	{ MODKEY,                GDK_KEY_p,      clipboard,  { .i = 1 } },
 	{ MODKEY,                GDK_KEY_y,      clipboard,  { .i = 0 } },
@@ -181,17 +177,18 @@ static Key keys[] = {
 
 	{ MODKEY|GDK_SHIFT_MASK, GDK_KEY_p,      print,      { 0 } },
 	{ MODKEY,                GDK_KEY_t,      showcert,   { 0 } },
+        { MODKEY,                GDK_KEY_i,      showcert,   { 0 } },
 
 	{ MODKEY|GDK_SHIFT_MASK, GDK_KEY_a,      togglecookiepolicy, { 0 } },
 	{ 0,                     GDK_KEY_F11,    togglefullscreen, { 0 } },
 	{ MODKEY|GDK_SHIFT_MASK, GDK_KEY_o,      toggleinspector, { 0 } },
+        { 0,                     GDK_KEY_F12,    toggleinspector, { 0 } },
 
 	{ MODKEY|GDK_SHIFT_MASK, GDK_KEY_c,      toggle,     { .i = CaretBrowsing } },
 	{ MODKEY|GDK_SHIFT_MASK, GDK_KEY_f,      toggle,     { .i = FrameFlattening } },
 	{ MODKEY|GDK_SHIFT_MASK, GDK_KEY_g,      toggle,     { .i = Geolocation } },
 	{ MODKEY|GDK_SHIFT_MASK, GDK_KEY_s,      toggle,     { .i = JavaScript } },
 	{ MODKEY|GDK_SHIFT_MASK, GDK_KEY_i,      toggle,     { .i = LoadImages } },
-	{ MODKEY|GDK_SHIFT_MASK, GDK_KEY_b,      toggle,     { .i = ScrollBars } },
 	{ MODKEY|GDK_SHIFT_MASK, GDK_KEY_t,      toggle,     { .i = StrictTLS } },
 	{ MODKEY|GDK_SHIFT_MASK, GDK_KEY_m,      toggle,     { .i = Style } },
 	{ MODKEY|GDK_SHIFT_MASK, GDK_KEY_d,      toggle,     { .i = DarkMode } },
