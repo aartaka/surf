@@ -137,7 +137,7 @@ static SiteSpecific scripts[] = {
 	{ "://duckduckgo\\.com", "example.js" },
 };
 
-#define MODKEY GDK_CONTROL_MASK
+#define MODKEY GDK_MOD1_MASK
 
 /* hotkeys */
 /*
