@@ -150,13 +150,12 @@ static Key keys[] = {
 	{ MODKEY,                GDK_KEY_slash,  spawn,      SETPROP("_SURF_FIND", "_SURF_FIND", PROMPT_FIND) },
 
 	{ 0,                     GDK_KEY_Escape, stop,       { 0 } },
-	{ MODKEY,                GDK_KEY_g,      stop,       { 0 } },
 
 	{ MODKEY|GDK_SHIFT_MASK, GDK_KEY_r,      reload,     { .i = 1 } },
 	{ MODKEY,                GDK_KEY_r,      reload,     { .i = 0 } },
 
-	{ MODKEY|GDK_SHIFT_MASK, GDK_KEY_f,      navigate,   { .i = +1 } },
-	{ MODKEY|GDK_SHIFT_MASK, GDK_KEY_b,      navigate,   { .i = -1 } },
+	{ MODKEY,                GDK_KEY_Right,  navigate,   { .i = +1 } },
+	{ MODKEY,                GDK_KEY_Left,   navigate,   { .i = -1 } },
 
 	/* vertical and horizontal scrolling, in viewport percentage */
 	{ MODKEY,                GDK_KEY_n,      scrollv,    { .i = +10 } },
@@ -169,33 +168,22 @@ static Key keys[] = {
 	{ MODKEY,                GDK_KEY_minus,  zoom,       { .i = -1 } },
 	{ MODKEY,                GDK_KEY_equal,  zoom,       { .i = +1 } },
 
-	{ MODKEY,                GDK_KEY_y,      clipboard,  { .i = 1 } },
-	{ MODKEY,                GDK_KEY_w,      clipboard,  { .i = 0 } },
+	{ MODKEY,                GDK_KEY_g,      find,       { .i = +1 } },
+	{ MODKEY|GDK_SHIFT_MASK, GDK_KEY_g,      find,       { .i = -1 } },
 
-	{ MODKEY,                GDK_KEY_n,      find,       { .i = +1 } },
-	{ MODKEY|GDK_SHIFT_MASK, GDK_KEY_n,      find,       { .i = -1 } },
-
-	{ MODKEY|GDK_SHIFT_MASK, GDK_KEY_p,      print,      { 0 } },
-	{ MODKEY,                GDK_KEY_t,      showcert,   { 0 } },
         { MODKEY,                GDK_KEY_i,      showcert,   { 0 } },
 
-	{ MODKEY|GDK_SHIFT_MASK, GDK_KEY_a,      togglecookiepolicy, { 0 } },
 	{ 0,                     GDK_KEY_F11,    togglefullscreen, { 0 } },
-	{ MODKEY|GDK_SHIFT_MASK, GDK_KEY_o,      toggleinspector, { 0 } },
         { 0,                     GDK_KEY_F12,    toggleinspector, { 0 } },
 
         { MODKEY,                GDK_KEY_1,      toggle,     { .i = JavaScript } },
 	{ MODKEY,                GDK_KEY_2,      toggle,     { .i = LoadImages } },
         { MODKEY,                GDK_KEY_3,      toggle,     { .i = CaretBrowsing } },
 
-	{ MODKEY|GDK_SHIFT_MASK, GDK_KEY_c,      toggle,     { .i = CaretBrowsing } },
-	{ MODKEY|GDK_SHIFT_MASK, GDK_KEY_f,      toggle,     { .i = FrameFlattening } },
-	{ MODKEY|GDK_SHIFT_MASK, GDK_KEY_g,      toggle,     { .i = Geolocation } },
-	{ MODKEY|GDK_SHIFT_MASK, GDK_KEY_s,      toggle,     { .i = JavaScript } },
-	{ MODKEY|GDK_SHIFT_MASK, GDK_KEY_i,      toggle,     { .i = LoadImages } },
-	{ MODKEY|GDK_SHIFT_MASK, GDK_KEY_t,      toggle,     { .i = StrictTLS } },
-	{ MODKEY|GDK_SHIFT_MASK, GDK_KEY_m,      toggle,     { .i = Style } },
-	{ MODKEY|GDK_SHIFT_MASK, GDK_KEY_d,      toggle,     { .i = DarkMode } },
+	{ MODKEY,                GDK_KEY_4,      toggle,     { .i = StrictTLS } },
+        { MODKEY,                GDK_KEY_5,      togglecookiepolicy, { 0 } },
+	{ MODKEY,                GDK_KEY_6,      toggle,     { .i = Style } },
+	{ MODKEY,                GDK_KEY_7,      toggle,     { .i = DarkMode } },
 };
 
 /* button definitions */
