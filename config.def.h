@@ -7,6 +7,7 @@ static char *certdir        = "~/.local/share/surf/certificates/";
 static char *cachedir       = "~/.local/share/surf/cache/";
 static char *cookiefile     = "~/.local/share/surf/cookies.txt";
 static char *scriptdir      = "~/.local/share/surf/scripts/";
+static char *historyfile    = "~/.local/share/surf/history.txt";
 
 static SearchEngine searchengines[] = {
 	{ " ", "https://duckduckgo.com/?q=%s" },
