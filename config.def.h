@@ -182,8 +182,10 @@ static Key keys[] = {
 
 	{ MODKEY,                GDK_KEY_4,      toggle,     { .i = StrictTLS } },
         { MODKEY,                GDK_KEY_5,      togglecookiepolicy, { 0 } },
-	{ MODKEY,                GDK_KEY_6,      toggle,     { .i = Style } },
-	{ MODKEY,                GDK_KEY_7,      toggle,     { .i = DarkMode } },
+        { MODKEY,                GDK_KEY_6,      toggle,     { .i = AccessMicrophone } },
+	{ MODKEY,                GDK_KEY_7,      toggle,     { .i = AccessWebcam } },
+	{ MODKEY,                GDK_KEY_8,      toggle,     { .i = Style } },
+	{ MODKEY,                GDK_KEY_9,      toggle,     { .i = DarkMode } },
 };
 
 /* button definitions */
