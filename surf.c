@@ -795,8 +795,10 @@ setparameter(Client *c, int refresh, ParamName p, const Arg *a)
 
 	switch (p) {
 	case AccessMicrophone:
+		webkit_settings_set_enable_webrtc(c->settings, a->i);
 		return; /* do nothing */
 	case AccessWebcam:
+		webkit_settings_set_enable_webrtc(c->settings, a->i);
 		return; /* do nothing */
 	case CaretBrowsing:
 		webkit_settings_set_enable_caret_browsing(c->settings, a->i);
@@ -849,6 +851,7 @@ setparameter(Client *c, int refresh, ParamName p, const Arg *a)
 		return; /* do not update */
 	case Inspector:
 		webkit_settings_set_enable_developer_extras(c->settings, a->i);
+		webkit_settings_set_enable_write_console_messages_to_stdout(c->settings, a->i);
 		return; /* do not update */
 	case Java:
 		webkit_settings_set_enable_java(c->settings, a->i);
@@ -1170,6 +1173,7 @@ newview(Client *c, WebKitWebView *rv)
 		settings = webkit_web_view_get_settings(v);
 	} else {
 		settings = webkit_settings_new_with_settings(
+		   "enable-webrtc", curconfig[AccessMicrophone].val.i || curconfig[AccessWebcam].val.i,
 		   "allow-file-access-from-file-urls", curconfig[FileURLsCrossAccess].val.i,
 		   "allow-universal-access-from-file-urls", curconfig[FileURLsCrossAccess].val.i,
 		   "auto-load-images", curconfig[LoadImages].val.i,
@@ -1178,6 +1182,7 @@ newview(Client *c, WebKitWebView *rv)
 		   "enable-caret-browsing", curconfig[CaretBrowsing].val.i,
 		   "enable-spatial-navigation", curconfig[CaretBrowsing].val.i,
 		   "enable-developer-extras", curconfig[Inspector].val.i,
+		   "enable-write-console-messages-to-stdout", curconfig[Inspector].val.i,
 		   "enable-dns-prefetching", curconfig[DNSPrefetch].val.i,
 		   "enable-frame-flattening", curconfig[FrameFlattening].val.i,
 		   "enable-html5-database", curconfig[DiskCache].val.i,
@@ -1188,6 +1193,7 @@ newview(Client *c, WebKitWebView *rv)
 		   "enable-smooth-scrolling", curconfig[SmoothScrolling].val.i,
 		   "enable-webgl", curconfig[WebGL].val.i,
 		   "media-playback-requires-user-gesture", curconfig[MediaManualPlay].val.i,
+                   "enable-resizable-text-areas", 1,
 		   NULL);
 /* For more interesting settings, have a look at
  * http://webkitgtk.org/reference/webkit2gtk/stable/WebKitSettings.html */
