@@ -800,6 +800,7 @@ setparameter(Client *c, int refresh, ParamName p, const Arg *a)
 		return; /* do nothing */
 	case CaretBrowsing:
 		webkit_settings_set_enable_caret_browsing(c->settings, a->i);
+                webkit_settings_set_enable_spatial_navigation(c->settings, a->i);
 		refresh = 0;
 		break;
 	case Certificate:
@@ -1175,6 +1176,7 @@ newview(Client *c, WebKitWebView *rv)
 		   "default-charset", curconfig[DefaultCharset].val.v,
 		   "default-font-size", curconfig[FontSize].val.i,
 		   "enable-caret-browsing", curconfig[CaretBrowsing].val.i,
+		   "enable-spatial-navigation", curconfig[CaretBrowsing].val.i,
 		   "enable-developer-extras", curconfig[Inspector].val.i,
 		   "enable-dns-prefetching", curconfig[DNSPrefetch].val.i,
 		   "enable-frame-flattening", curconfig[FrameFlattening].val.i,
