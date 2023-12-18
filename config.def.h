@@ -61,10 +61,6 @@ static UriParameters uriparams[] = {
 	{ "(://|\\.)suckless\\.org(/|$)", {
 	  [JavaScript] = { { .i = 0 }, 1 },
 	}, },
-        { "webkit-pdfjs-viewer://.*", {
-	  [JavaScript] = { { .i = 1 }, 1 },
-          [LoadImages] = { { .i = 1 }, 1 },
-	}, },
 };
 
 /* default window size: width, height */
