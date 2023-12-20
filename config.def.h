@@ -2,7 +2,7 @@
 static int surfuseragent    = 0;  /* Append Surf version to default WebKit user agent */
 static char *fulluseragent  = "Mozilla/5.0 (Macintosh; Intel Mac OS X 14_1) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.1 Safari/605.1.15"; /* Or override the whole user agent string */
 static char *scriptfile     = "~/.local/share/surf/script.js";
-static char *styledir       = "~/.local/share/surf/styles/";
+static char *styledir       = "~/git/surf/styles/";
 static char *certdir        = "~/.local/share/surf/certificates/";
 static char *cachedir       = "~/.local/share/surf/cache/";
 static char *cookiefile     = "~/.local/share/surf/cookies.txt";
