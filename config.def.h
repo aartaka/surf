@@ -60,6 +60,10 @@ static UriParameters uriparams[] = {
 	{ "(://|\\.)suckless\\.org(/|$)", {
 	  [JavaScript] = { { .i = 0 }, 1 },
 	}, },
+        { "^https://ibanking.ardshinbank.am:4443/nibanking/", {
+	  [JavaScript] = { { .i = 1 }, 1 },
+          [LoadImages] = { { .i = 1 }, 1 },
+	}, },
 };
 
 /* default window size: width, height */
