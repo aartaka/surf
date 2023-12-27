@@ -1765,6 +1765,7 @@ decideresource(WebKitPolicyDecision *d, Client *c)
 	    && !g_str_has_prefix(uri, "data:")
 	    && !g_str_has_prefix(uri, "blob:")
 	    && !(g_str_has_prefix(uri, "webkit-pdfjs-viewer://") && curconfig[PDFJSviewer].val.i)
+            && !g_str_has_prefix(uri, "onion://")
 	    && strlen(uri) > 0) {
 		for (i = 0; i < strlen(uri); i++) {
 			if (!g_ascii_isprint(uri[i])) {
