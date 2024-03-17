@@ -181,7 +181,6 @@ static Key keys[] = {
 
 	{ 0,                     GDK_KEY_F11,    togglefullscreen, { 0 } },
         { 0,                     GDK_KEY_F12,    toggleinspector, { 0 } },
-
         { MODKEY,                GDK_KEY_1,      toggle,     { .i = JavaScript } },
 	{ MODKEY,                GDK_KEY_2,      toggle,     { .i = LoadImages } },
         { MODKEY,                GDK_KEY_3,      toggle,     { .i = CaretBrowsing } },
