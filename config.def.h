@@ -63,6 +63,10 @@ static UriParameters uriparams[] = {
 	  [JavaScript] = { { .i = 1 }, 1 },
           [LoadImages] = { { .i = 1 }, 1 },
 	}, },
+	{ "^https://aartaka.me", {
+	  [JavaScript] = { { .i = 1 }, 1 },
+          [LoadImages] = { { .i = 1 }, 1 },
+	}, },
 };
 
 /* default window size: width, height */
