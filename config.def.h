@@ -193,6 +193,7 @@ static Key keys[] = {
 	{ MODKEY,                GDK_KEY_7,      toggle,     { .i = AccessWebcam } },
 	{ MODKEY,                GDK_KEY_8,      toggle,     { .i = Style } },
 	{ MODKEY,                GDK_KEY_9,      toggle,     { .i = DarkMode } },
+	{ MODKEY,                GDK_KEY_0,      togglefullscreen, { 0 } },
 };
 
 /* button definitions */
