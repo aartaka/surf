@@ -6,7 +6,7 @@ static char *styledir       = "~/git/surf/styles/";
 static char *certdir        = "~/.guix-profile/etc/ssl/certs/";
 static char *cachedir       = "~/.local/share/surf/cache/";
 static char *cookiefile     = "~/.local/share/surf/cookies.txt";
-static char *scriptdir      = "~/.local/share/surf/scripts/";
+static char *scriptdir      = "~/git/surf/scripts/";
 static char *historyfile    = "~/.local/share/surf/history.txt";
 
 static SearchEngine searchengines[] = {
