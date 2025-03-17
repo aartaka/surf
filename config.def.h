@@ -141,7 +141,7 @@ static SiteSpecific certs[] = {
  */
 static SiteSpecific scripts[] = {
 	/* regexp                script in $scriptdir */
-	{ "://duckduckgo\\.com", "example.js" },
+	{ ".*", "default.js" },
 };
 
 #define MODKEY GDK_MOD1_MASK
